@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pages on YirenZzz</title>
+    <link>http://localhost:1313/pages/</link>
+    <description>Recent content in Pages on YirenZzz</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language><atom:link href="http://localhost:1313/pages/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>http://localhost:1313/pages/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/pages/about/</guid>
+      
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://localhost:1313/pages/public/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/pages/public/</guid>
+      
+      <description>&lt;!DOCTYPE html&gt; YirenZzz | YirenZzz Home Menu Home Posts About | LIGHT DARK YirenZzz&amp;#39;s blog To be continue...
+Recent Posts &amp;nbsp; © 2024 Yiren Zhao. Powered by Hugo blog awesome. </description>
+      
+    </item>
+    
+  </channel>
+</rss>
