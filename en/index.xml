@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ens on YirenZzz</title>
-    <link>http://localhost:1313/en/</link>
+    <link>https://yirenzzz.github.io/en/</link>
     <description>Recent content in Ens on YirenZzz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Fri, 23 Feb 2024 17:54:53 +0800</lastBuildDate><atom:link href="http://localhost:1313/en/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Feb 2024 17:54:53 +0800</lastBuildDate><atom:link href="https://yirenzzz.github.io/en/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My First Post</title>
-      <link>http://localhost:1313/en/posts/my-first-post/</link>
+      <link>https://yirenzzz.github.io/en/posts/my-first-post/</link>
       <pubDate>Fri, 23 Feb 2024 17:54:53 +0800</pubDate>
       
-      <guid>http://localhost:1313/en/posts/my-first-post/</guid>
+      <guid>https://yirenzzz.github.io/en/posts/my-first-post/</guid>
       
       <description>Introduction This is bold text, and this is emphasized text.</description>
       
@@ -20,10 +20,10 @@
     
     <item>
       <title></title>
-      <link>http://localhost:1313/en/pages/about/</link>
+      <link>https://yirenzzz.github.io/en/pages/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/en/pages/about/</guid>
+      <guid>https://yirenzzz.github.io/en/pages/about/</guid>
       
       <description></description>
       

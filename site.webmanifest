@@ -1,7 +1,7 @@
 {
     "name": "Awesome hugo blog",
     "short_name": "Awesome hugo blog",
-    "start_url": "http://localhost:1313/",
+    "start_url": "https://yirenzzz.github.io/",
     "theme_color": "#434648",
     "background_color": "#131418",
     "display": "standalone",
