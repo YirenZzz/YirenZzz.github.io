@@ -1,8 +1,7 @@
----
+<!-- ---
 layout: post
-date: 2015-10-22 15:59:00-0400
+date: 2022-01-13 17:00:00-0400
 inline: true
-related_posts: false
 ---
 
-A simple inline announcement.
+Our paper, MCL: Mixed-Centric Loss for Collaborative Filtering, is accepted at The Web Conference (WWW) 2022! -->
