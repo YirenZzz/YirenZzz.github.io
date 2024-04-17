@@ -23,7 +23,6 @@ group :jekyll_plugins do
     gem 'jekyll-github-metadata'
     gem 'jekyll-target-blank'
     gem 'htmlbeautifier'
-    gem 'webrick'
     gem 'htmlcompressor'
     gem 'faraday-retry'
 end
