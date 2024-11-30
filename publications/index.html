@@ -49,7 +49,7 @@
 <header>
 
   <!-- Nav Bar -->
-  <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top">
+  <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" style="max-width: 880px; margin: auto;">
     <div class="container">
       <a class="navbar-brand title font-weight-lighter" href="https://YirenZzz.github.io/"><span class="font-weight-bold">Yiren</span>   Zhao</a>
       <!-- Navbar Toggle -->
@@ -90,15 +90,16 @@
     <!-- Content -->
     <div class="container mt-5">
       <!-- page.html -->
-        <div class="post">
+        <div class="post" style="max-width: 810px; margin: auto;">
 
           <header class="post-header">
-            <h1 class="post-title">Publications</h1>
+            <h2 class="post-title"><strong>Publications</strong></h2>
             <p class="post-description"></p>
           </header>
 
           <article>
             <style>
+
 .publications-wrapper {
   display: flex;
   flex-direction: column;
@@ -109,22 +110,21 @@
   flex-direction: row;
   align-items: flex-start; /* Align items to the top */
   margin-bottom: 20px; /* Adjust the space between items */
-  max-width: 1200px; /* Maximum width of the content */
-  margin-left: auto; /* Centers the content */
-  margin-right: auto; /* Centers the content */
+  max-width: 810px; /* Maximum width of the content */
+  
 }
 
 
 .publication-image {
   flex-shrink: 0;
   /* margin-left: -200px; */
-  margin-right: 20px; /* Adjust the space between image and text */
+  margin-right: 15px; /* Adjust the space between image and text */
 }
 
 
 /* Adjustments for larger image */
 .publication-image img {
-  width:400px; /* Set the width as needed */
+  width: 355px; /* Set the width as needed */
   height: auto; /* Height will scale automatically */
 }
 
@@ -135,23 +135,26 @@
 }
 
 .publication-links {
+  font-size: 0.85em;
   white-space: nowrap;
-  margin-top: 5px; /* Adds space above the links */
+  margin-top: -3px; /* Adds space above the links */
 }
 
 .publication-title {
-  font-size: 1.5em; /* Adjust the size of the title */
-  margin-bottom: 0.5em;
-}
-
-.publication-authors {
-  font-size: 1em; /* Adjust the size of the authors list */
-  color: #555; /* Adjust the color of the authors list */
+  font-size: 19px; /* Adjust the size of the title */
   margin-bottom: 0.4em;
 }
 
+.publication-authors {
+  font-size: 15px; /* Adjust the size of the authors list */
+  color: #555; /* Adjust the color of the authors list */
+  margin-top: -0.2em;
+  margin-bottom: 0.2em;
+}
 .publication-conference {
-  font-size: 1em; /* Adjust the size of the conference info */
+  font-size: 0.85em; /* Adjust the size of the conference info */
+  margin-top: 0.1em;
+  margin-bottom: 0.2em;
   color: #777; /* Adjust the color of the conference info */
 }
 
