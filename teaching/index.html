@@ -122,20 +122,22 @@
               .teaching-details {
                 font-size: 15px;
                 color: #666;
-                display: flex;
-                justify-content: space-between;
+                display: grid;
+                grid-template-columns: 1fr auto auto;
+                gap: 20px;
                 align-items: center;
-                flex-wrap: wrap;
               }
               .teaching-course {
                 font-style: italic;
               }
               .teaching-institution {
                 color: #888;
+                text-align: center;
               }
               .teaching-term {
                 color: #888;
                 white-space: nowrap;
+                text-align: right;
               }
             </style>
 
