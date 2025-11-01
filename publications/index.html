@@ -124,14 +124,17 @@
 .publication-image {
   flex-shrink: 0;
   /* margin-left: -200px; */
-  margin-right: 15px; /* Adjust the space between image and text */
+  margin-right: 20px; /* Adjust the space between image and text */
+  width: 300px;
+  height: 150px;
 }
 
 
 /* Adjustments for larger image */
 .publication-image img {
-  width: 355px; /* Set the width as needed */
-  height: auto; /* Height will scale automatically */
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* Stretch to fill box */
 }
 
 .publication-metadata {
