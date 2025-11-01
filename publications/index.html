@@ -51,7 +51,7 @@
   <!-- Nav Bar -->
   <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" style="max-width: 880px; margin: auto;">
     <div class="container">
-      <a class="navbar-brand title font-weight-lighter" href="https://YirenZzz.github.io/"> Yiren  <span class="font-weight-bold">Zhao</span></a>
+      <a class="navbar-brand title font-weight-lighter" href="https://YirenZzz.github.io/"> <span class="font-weight-bold">Yiren Zhao</span></a>
       <!-- Navbar Toggle -->
       <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="sr-only">Toggle navigation</span>
@@ -120,7 +120,7 @@
   position: relative;
   padding: 18px 22px;
   border-radius: 22px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), #ffffff);
+  background: var(--global-card-bg-color);
   border: 1px solid rgba(0, 0, 0, 0.05);
   transition: transform 0.28s ease, border-color 0.28s ease;
 }
@@ -129,6 +129,16 @@
 .publication-item:hover {
   transform: translateY(-4px);
   border-color: rgba(0, 0, 0, 0.12);
+}
+
+
+html[data-theme=dark] .publication-item {
+  background: rgba(28, 28, 30, 0.9);
+  border-color: rgba(255, 255, 255, 0.09);
+}
+
+html[data-theme=dark] .publication-item:hover {
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 
