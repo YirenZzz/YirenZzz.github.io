@@ -106,25 +106,37 @@
           <article>
             <style>
               .teaching-item {
-                margin-bottom: 20px;
-                padding-bottom: 15px;
+                margin-bottom: 24px;
+                padding-bottom: 18px;
+                border-bottom: 1px solid var(--global-divider-color, rgba(0,0,0,0.08));
+              }
+              .teaching-item:last-of-type {
+                border-bottom: none;
               }
               .teaching-role {
-                font-size: 17px;
+                font-size: 24px;
                 font-weight: 600;
                 color: var(--global-text-color);
-                margin-bottom: 5px;
+                margin-bottom: 15px;
               }
               .teaching-details {
-                font-size: 15px;
+                display: grid;
+                gap: 18px;
+              }
+              .teaching-entry {
+                font-size: 18px;
                 color: var(--global-text-color-light);
                 display: grid;
-                grid-template-columns: 1fr 200px 120px;
-                gap: 30px;
+                grid-template-columns: 1fr 200px 150px;
+                gap: 26px;
                 align-items: center;
+                line-height: 1.65;
+              }
+              .teaching-entry + .teaching-entry {
+                margin-top: 3px;
               }
               .teaching-course {
-                font-style: italic;
+                color: var(--global-text-color);
               }
               .teaching-institution {
                 color: var(--global-text-color-light);
@@ -135,32 +147,40 @@
                 white-space: nowrap;
                 text-align: right;
               }
+              @media (max-width: 767.98px) {
+                .teaching-entry {
+                  grid-template-columns: 1fr;
+                  gap: 10px;
+                  text-align: left;
+                  font-size: 17px;
+                  line-height: 1.6;
+                }
+                .teaching-institution,
+                .teaching-term {
+                  text-align: left;
+                  white-space: normal;
+                }
+              }
             </style>
 
             <div class="teaching-item">
               <div class="teaching-role">Teaching Assistant</div>
               <div class="teaching-details">
-                <span class="teaching-course">ECE1779: Introduction to Cloud Computing</span>
-                <span class="teaching-institution">University of Toronto</span>
-                <span class="teaching-term">Winter 2025</span>
-              </div>
-            </div>
-
-            <div class="teaching-item">
-              <div class="teaching-role">Teaching Assistant</div>
-              <div class="teaching-details">
-                <span class="teaching-course">ECE1778: Creative Applications for Mobile Devices</span>
-                <span class="teaching-institution">University of Toronto</span>
-                <span class="teaching-term">Fall 2025</span>
-              </div>
-            </div>
-
-            <div class="teaching-item">
-              <div class="teaching-role">Teaching Assistant</div>
-              <div class="teaching-details">
-                <span class="teaching-course">CSC207: Software Design</span>
-                <span class="teaching-institution">University of Toronto</span>
-                <span class="teaching-term">Fall 2024</span>
+                <div class="teaching-entry">
+                  <span class="teaching-course">ECE1779: Introduction to Cloud Computing</span>
+                  <span class="teaching-institution">University of Toronto</span>
+                  <span class="teaching-term">Winter 2025</span>
+                </div>
+                <div class="teaching-entry">
+                  <span class="teaching-course">ECE1778: Creative Applications for Mobile Devices</span>
+                  <span class="teaching-institution">University of Toronto</span>
+                  <span class="teaching-term">Fall 2025</span>
+                </div>
+                <div class="teaching-entry">
+                  <span class="teaching-course">CSC207: Software Design</span>
+                  <span class="teaching-institution">University of Toronto</span>
+                  <span class="teaching-term">Fall 2024</span>
+                </div>
               </div>
             </div>
           </article>

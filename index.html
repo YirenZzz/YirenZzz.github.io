@@ -172,15 +172,25 @@
   align-items: flex-start; /* Align items to the top */
   margin-bottom: 20px; /* Adjust the space between items */
   max-width: 810px; /* Maximum width of the content */
-  
+  position: relative;
+  padding: 10px 10px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), #ffffff);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.28s ease, border-color 0.28s ease;
+}
+
+
+.publication-item:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 0, 0, 0.12);
 }
 
 
 .publication-image {
   flex-shrink: 0;
-  /* margin-left: -200px; */
   margin-right: 20px; /* Adjust the space between image and text */
-  width: 295px;
+  width: 300px;
   height: 150px;
 }
 
@@ -189,13 +199,13 @@
 .publication-image img {
   width: 100%;
   height: 100%;
-  object-fit: fill; /* Stretch to fill box */
+  object-fit: fill; /* Stretch image to fixed frame */
+  border-radius: 0px;
 }
 
 .publication-metadata {
   flex-grow: 1;
-  margin-right: 20px; /* Adjust the space between text and links */
-  width:700px;
+  width: calc(100% - 320px);
 }
 
 .publication-links {
@@ -225,6 +235,28 @@
 
 
 /* You may need to add more styling for links and other elements */
+
+@media (max-width: 576px) {
+  .publication-item {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .publication-image {
+    margin-right: 0;
+    margin-bottom: 10px;
+    width: 100%;
+    height: auto;
+  }
+
+  .publication-image img {
+    height: auto;
+  }
+
+  .publication-metadata {
+    width: 100%;
+  }
+}
 </style>
 <h2 style="font-size: 24px;"><strong>Publications</strong></h2>
 <!-- <h2><strong>Publications</strong></h1> -->
