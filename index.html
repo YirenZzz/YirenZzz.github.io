@@ -186,7 +186,9 @@
 /* Adjustments for larger image */
 .publication-image img {
   width: 355px; /* Set the width as needed */
-  height: auto; /* Height will scale automatically */
+  height: 200px; /* Fixed height for consistent aspect ratio (16:9) */
+  object-fit: cover; /* Crop image to fit while maintaining aspect ratio */
+  object-position: center; /* Center the image within the frame */
 }
 
 .publication-metadata {
