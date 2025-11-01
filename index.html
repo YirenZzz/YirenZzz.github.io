@@ -180,15 +180,16 @@
   flex-shrink: 0;
   /* margin-left: -200px; */
   margin-right: 20px; /* Adjust the space between image and text */
+  width: 230px;
+  height: 130px;
 }
 
 
 /* Adjustments for larger image */
 .publication-image img {
-  width: 355px; /* Set the width as needed */
-  height: 200px; /* Fixed height for consistent aspect ratio (16:9) */
-  object-fit: cover; /* Crop image to fit while maintaining aspect ratio */
-  object-position: center; /* Center the image within the frame */
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* Stretch to fill box */
 }
 
 .publication-metadata {
@@ -318,7 +319,7 @@
           <strong>SRC: A Scalable Reliable Connection for RDMA with Decoupled QPs and Connections</strong>
         </a>
       </h3>
-      <p class="publication-authors"><strong>Yiren Zhao</strong>, Ran Shu, Yongqiang Xiong/p>
+      <p class="publication-authors"><strong>Yiren Zhao</strong>, Ran Shu, Yongqiang Xiong</p>
       <div class="publication-conference">
         <a href="https://conferences.sigcomm.org/events/apnet2025/" target="_blank" rel="noopener noreferrer"><i>APNet 2025</i></a>
       </div>
