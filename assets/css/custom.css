@@ -1,0 +1,11 @@
+/* 仅当正文第一块就是列表时，去掉默认缩进 */
+.post-content > :is(ul, ol):first-child,
+.page-content > :is(ul, ol):first-child,
+.markdown-body > :is(ul, ol):first-child {
+  margin-left: 0;
+  padding-left: 0;          /* 若想保留一点缩进，可改成 1rem */
+  list-style-position: inside; /* 可选：把项目符号放进文本区，视觉更齐 */
+}
+
+/* 如果有的页面存在滚动条、有的没有，可能出现轻微左右抖动 */
+html { overflow-y: scroll; }
