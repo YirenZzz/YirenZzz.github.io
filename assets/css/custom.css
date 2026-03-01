@@ -101,42 +101,41 @@ html[data-theme='dark'] #scroll-progress-bar {
 }
 
 /* Homepage profile image: soft, diffused shadow like a photo card */
+.home-page .profile.float-right {
+  width: clamp(260px, 30vw, 300px);
+  margin-left: 24px;
+}
+
 .home-page .profile .home-profile-photo {
-  width: 280px !important;
+  width: 100% !important;
   max-width: 100%;
   height: auto !important;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
-  margin-right: 20px;
-  margin-top: 10px;
+  margin: 10px 0 0;
   border-radius: 8px;
   box-shadow:
     0 4px 10px rgba(38, 66, 102, 0.09),
     0 10px 22px rgba(38, 66, 102, 0.10);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 768px) {
   .home-page .profile.float-right {
     float: none !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    width: 100% !important;
+    margin: 0 0 22px !important;
     text-align: center;
   }
 
   .home-page .profile figure {
+    width: min(100%, 500px);
     margin: 0 auto;
   }
 
   .home-page .profile .home-profile-photo {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-@media (max-width: 576px) {
-  .home-page .profile .home-profile-photo {
-    margin-left: auto;
-    margin-right: auto;
+    width: 100% !important;
+    max-width: none;
+    margin: 0 auto;
   }
 }
 
