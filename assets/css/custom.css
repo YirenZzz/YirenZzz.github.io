@@ -70,10 +70,12 @@ html[data-theme='dark'] #scroll-progress-bar {
 }
 
 /* Homepage profile image: soft, diffused shadow like a photo card */
-.home-profile-photo {
-  width: 280px;
-  height: 280px;
-  object-fit: cover;
+.home-page .profile .home-profile-photo {
+  width: 280px !important;
+  max-width: 100%;
+  height: auto !important;
+  object-fit: contain;
+  display: block;
   margin-right: 20px;
   margin-top: 10px;
   border-radius: 8px;
@@ -82,9 +84,28 @@ html[data-theme='dark'] #scroll-progress-bar {
     0 10px 22px rgba(38, 66, 102, 0.10);
 }
 
+@media (max-width: 1200px) {
+  .home-page .profile.float-right {
+    float: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center;
+  }
+
+  .home-page .profile figure {
+    margin: 0 auto;
+  }
+
+  .home-page .profile .home-profile-photo {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 @media (max-width: 576px) {
-  .home-profile-photo {
-    margin-right: 0;
+  .home-page .profile .home-profile-photo {
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
