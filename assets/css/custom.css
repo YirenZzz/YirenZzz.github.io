@@ -466,3 +466,19 @@ html[data-theme='dark'] .home-page .publication-item:hover {
 .home-page .home-section-text {
   font-weight: 350 !important;
 }
+
+/* Theme toggle icon follows theme color */
+#light-toggle {
+  color: var(--global-text-color) !important;
+  transition: color 180ms ease;
+}
+
+#light-toggle i,
+#light-toggle i::before {
+  color: currentColor !important;
+}
+
+#light-toggle:hover,
+#light-toggle:focus-visible {
+  color: var(--global-theme-color) !important;
+}
