@@ -506,3 +506,73 @@ html[data-theme='dark'] .home-page .publication-item:hover {
     width: 100% !important;
   }
 }
+
+/* Home profile icons: ensure hover uses theme color */
+.home-page .contact-icons a i,
+.home-page .contact-icons a i::before {
+  transition: color 180ms ease;
+}
+
+.home-page .contact-icons a:hover i,
+.home-page .contact-icons a:hover i::before,
+.home-page .contact-icons a:focus-visible i,
+.home-page .contact-icons a:focus-visible i::before {
+  color: var(--global-theme-color) !important;
+}
+
+/* Hard fix: ensure home contact icons are clickable and theme-reactive */
+.home-page .contact-icons {
+  position: relative;
+  z-index: 6;
+  pointer-events: auto;
+}
+
+.home-page .contact-icons a {
+  position: relative;
+  z-index: 7;
+  pointer-events: auto !important;
+  color: var(--global-text-color) !important;
+}
+
+.home-page .contact-icons a:hover,
+.home-page .contact-icons a:focus-visible {
+  color: var(--global-theme-color) !important;
+}
+
+.home-page .contact-icons a i,
+.home-page .contact-icons a i::before {
+  color: currentColor !important;
+}
+
+/* Home contact icons final fix */
+.home-page .profile {
+  position: relative;
+  z-index: 3;
+}
+
+.home-page .contact-icons {
+  position: relative;
+  z-index: 4;
+  pointer-events: auto !important;
+}
+
+.home-page .contact-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 5px;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  color: var(--global-text-color) !important;
+  text-decoration: none !important;
+}
+
+.home-page .contact-icons a i,
+.home-page .contact-icons a i::before {
+  color: currentColor !important;
+}
+
+.home-page .contact-icons a:hover,
+.home-page .contact-icons a:focus-visible {
+  color: var(--global-theme-color) !important;
+}
