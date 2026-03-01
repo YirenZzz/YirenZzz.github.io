@@ -482,3 +482,27 @@ html[data-theme='dark'] .home-page .publication-item:hover {
 #light-toggle:focus-visible {
   color: var(--global-theme-color) !important;
 }
+
+/* Publications responsive fix: match home card behavior on narrow screens */
+@media (max-width: 768px) {
+  .subpage-modern article .publication-item {
+    flex-direction: column !important;
+    padding: 12px !important;
+  }
+
+  .subpage-modern article .publication-image {
+    width: 100% !important;
+    height: auto !important;
+    margin-right: 0 !important;
+    margin-bottom: 10px !important;
+  }
+
+  .subpage-modern article .publication-image img {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .subpage-modern article .publication-metadata {
+    width: 100% !important;
+  }
+}
