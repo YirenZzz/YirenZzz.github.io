@@ -221,21 +221,23 @@ html[data-theme='dark'] #scroll-progress-bar {
 
 /* Make homepage publication cards look less plain-text and more intentional */
 .home-page .publication-item {
-  border-radius: 16px !important;
+  border-radius: 20px !important;
   padding: 12px 14px !important;
   border: 1px solid color-mix(in srgb, var(--global-divider-color) 72%, transparent) !important;
   background: color-mix(in srgb, var(--global-card-bg-color) 96%, transparent) !important;
+  box-shadow: none !important;
+  transform: translateY(0) !important;
 }
 
 .home-page .publication-item:hover {
-  transform: translateY(-3px) !important;
-  border-color: color-mix(in srgb, var(--global-theme-color) 8%, white) !important;
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08) !important;
+  transform: translateY(-4px) !important;
+  border-color: color-mix(in srgb, var(--global-theme-color) 22%, var(--global-divider-color)) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08) !important;
 }
 
 html[data-theme='dark'] .home-page .publication-item:hover {
-  border-color: color-mix(in srgb, var(--global-theme-color) 6%, #6f727a) !important;
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18) !important;
+  border-color: color-mix(in srgb, var(--global-theme-color) 22%, var(--global-divider-color)) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* Homepage entry animation (one-time on load) */
@@ -250,12 +252,25 @@ html[data-theme='dark'] .home-page .publication-item:hover {
   }
 }
 
+@keyframes home-fade-in-only {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .home-page .profile,
 .home-page .home-intro,
-.home-page .home-publications-title,
-.home-page .publication-item {
+.home-page .home-publications-title {
   opacity: 0;
   animation: home-fade-up 0.5s ease forwards;
+}
+
+.home-page .publication-item {
+  opacity: 0;
+  animation: home-fade-in-only 0.45s ease forwards;
 }
 
 .home-page .profile { animation-delay: 0.04s; }
@@ -328,4 +343,60 @@ html[data-theme='dark'] .home-page .publication-item:hover {
 
 .subpage-modern article {
   padding-top: 4px;
+}
+
+/* Card hover: subtle lift-up effect */
+.home-page .publication-item,
+.publications .publication-item {
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease !important;
+  will-change: transform, box-shadow;
+}
+
+.home-page .publication-item:hover,
+.publications .publication-item:hover {
+  transform: translateY(-4px) !important;
+  border-color: color-mix(in srgb, var(--global-theme-color) 22%, var(--global-divider-color)) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Final override: About page publication-card interaction spec */
+.home-page article .publication-item {
+  border-radius: 20px !important;
+  transform: translateY(0) !important;
+  box-shadow: none !important;
+  border-color: color-mix(in srgb, var(--global-divider-color) 72%, transparent) !important;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease !important;
+}
+
+.home-page article .publication-item:hover {
+  transform: translateY(-4px) !important;
+  border-color: color-mix(in srgb, var(--global-theme-color) 28%, var(--global-divider-color)) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Publications page: same card interaction as About page */
+.subpage-modern article .publication-item {
+  border-radius: 20px !important;
+  transform: translateY(0) !important;
+  box-shadow: none !important;
+  border-color: color-mix(in srgb, var(--global-divider-color) 72%, transparent) !important;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease !important;
+}
+
+.subpage-modern article .publication-item:hover {
+  transform: translateY(-4px) !important;
+  border-color: color-mix(in srgb, var(--global-theme-color) 28%, var(--global-divider-color)) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08) !important;
+}
+
+@keyframes publication-fade-in-opacity {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.subpage-modern article .publication-item {
+  animation-name: publication-fade-in-opacity !important;
+  animation-duration: 0.45s !important;
+  animation-timing-function: ease !important;
+  animation-fill-mode: forwards !important;
 }
