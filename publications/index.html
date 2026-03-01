@@ -27,7 +27,7 @@
 
     <!-- Styles -->
     
-    <!-- <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>"> -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%9C%A8</text></svg>">
     
     <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="stylesheet" href="/assets/css/custom.css">
@@ -44,7 +44,7 @@
   </head>
 
   <!-- Body -->
-  <body class="fixed-top-nav ">
+  <body class="fixed-top-nav subpage-modern">
 
     <!-- Header -->
 <header>
@@ -112,6 +112,31 @@
   flex-direction: column;
 }
 
+.publication-year {
+  font-family: "Roboto", sans-serif !important;
+  margin: 20px 0 18px;
+  padding-top: 10px;
+  border-top: 1px solid color-mix(in srgb, var(--global-divider-color) 58%, transparent);
+  text-align: right;
+  font-size: 1.75rem;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  color: color-mix(in srgb, var(--global-text-color) 16%, transparent);
+  opacity: 0;
+  animation: publication-fade-in 0.45s ease forwards;
+}
+
+.publication-year:first-of-type {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: none;
+}
+
+html[data-theme=dark] .publication-year {
+  color: color-mix(in srgb, var(--global-text-color) 22%, transparent);
+}
+
 .publication-item {
   display: flex;
   flex-direction: row;
@@ -123,13 +148,39 @@
   border-radius: 22px;
   background: var(--global-card-bg-color);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  transition: transform 0.28s ease, border-color 0.28s ease;
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+  opacity: 0;
+  animation: publication-fade-in 0.45s ease forwards;
+}
+
+.publication-item:nth-of-type(1) { animation-delay: 0.04s; }
+.publication-item:nth-of-type(2) { animation-delay: 0.09s; }
+.publication-item:nth-of-type(3) { animation-delay: 0.14s; }
+.publication-item:nth-of-type(4) { animation-delay: 0.19s; }
+.publication-item:nth-of-type(5) { animation-delay: 0.24s; }
+.publication-item:nth-of-type(6) { animation-delay: 0.29s; }
+
+.publication-year:nth-of-type(1) { animation-delay: 0.01s; }
+.publication-year:nth-of-type(2) { animation-delay: 0.07s; }
+.publication-year:nth-of-type(3) { animation-delay: 0.13s; }
+.publication-year:nth-of-type(4) { animation-delay: 0.19s; }
+
+@keyframes publication-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 
 .publication-item:hover {
   transform: translateY(-4px);
-  border-color: rgba(0, 0, 0, 0.12);
+  border-color: color-mix(in srgb, var(--global-theme-color) 14%, white);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
 }
 
 
@@ -139,7 +190,8 @@ html[data-theme=dark] .publication-item {
 }
 
 html[data-theme=dark] .publication-item:hover {
-  border-color: rgba(255, 255, 255, 0.18);
+  border-color: color-mix(in srgb, var(--global-theme-color) 12%, #6f727a);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
 }
 
 
@@ -198,6 +250,10 @@ html[data-theme=dark] .publication-item:hover {
 /* You may need to add more styling for links and other elements */
 
 @media (max-width: 576px) {
+  .publication-year {
+    font-size: 1.55rem;
+  }
+
   .publication-item {
     flex-direction: column;
     padding: 18px;
@@ -218,9 +274,18 @@ html[data-theme=dark] .publication-item:hover {
     width: 100%;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .publication-year,
+  .publication-item {
+    animation: none;
+    opacity: 1;
+  }
+}
 </style>
 
 <div class="publications-wrapper">
+  <h3 class="publication-year">2026</h3>
 
   <!-- Publication 1: ECOTE -->
   <!-- <div class="publication-item">
@@ -323,6 +388,8 @@ html[data-theme=dark] .publication-item:hover {
     </div>
   </div> -->
 
+  <h3 class="publication-year">2025</h3>
+
   <div class="publication-item">
     <div class="publication-image">
       <img src="../assets/img/2025prete.png" alt="PreTE Publication Image">
@@ -387,6 +454,8 @@ html[data-theme=dark] .publication-item:hover {
     </div>
   </div>
 
+  <h3 class="publication-year">2024</h3>
+
   <!-- Publication 10: AB-TCAD -->
   <div class="publication-item">
     <div class="publication-image">
@@ -407,6 +476,8 @@ html[data-theme=dark] .publication-item:hover {
       </div>
     </div>
   </div>
+
+  <h3 class="publication-year">2023</h3>
 
   <!-- Publication 11: FlexWAN -->
   <div class="publication-item">
@@ -481,4 +552,3 @@ html[data-theme=dark] .publication-item:hover {
     
   </body>
 </html>
-

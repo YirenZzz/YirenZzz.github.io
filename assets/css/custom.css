@@ -9,3 +9,271 @@
 
 /* 如果有的页面存在滚动条、有的没有，可能出现轻微左右抖动 */
 html { overflow-y: scroll; }
+
+/* Use Roboto only for menu, bold titles, and publication titles */
+.navbar.navbar-light .navbar-nav .nav-item .nav-link,
+h1 strong,
+h2 strong,
+h3 strong,
+.publication-title,
+.publication-title strong {
+  font-family: "Roboto", sans-serif !important;
+}
+
+/* Full-width reading progress bar under the fixed navbar */
+#scroll-progress-track {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: transparent;
+  z-index: 1040;
+  pointer-events: none;
+}
+
+#scroll-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: color-mix(in srgb, var(--global-theme-color) 72%, white);
+  transition: width 0.08s linear;
+}
+
+html[data-theme='dark'] #scroll-progress-bar {
+  background: var(--global-theme-color);
+}
+
+/* Larger top navigation menu text */
+.navbar.navbar-light .navbar-nav .nav-item .nav-link {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 576px) {
+  .navbar.navbar-light .navbar-nav .nav-item .nav-link {
+    font-size: 1rem;
+  }
+}
+
+/* Keep navbar content centered, but make the bottom divider full-width */
+#navbar {
+  border-bottom: none !important;
+}
+
+#navbar::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 100vw;
+  transform: translateX(-50%);
+  border-bottom: 1px solid var(--global-divider-color);
+  pointer-events: none;
+}
+
+/* Homepage profile image: soft, diffused shadow like a photo card */
+.home-profile-photo {
+  width: 280px;
+  height: 280px;
+  object-fit: cover;
+  margin-right: 20px;
+  margin-top: 10px;
+  border-radius: 8px;
+  box-shadow:
+    0 4px 10px rgba(38, 66, 102, 0.09),
+    0 10px 22px rgba(38, 66, 102, 0.10);
+}
+
+@media (max-width: 576px) {
+  .home-profile-photo {
+    margin-right: 0;
+  }
+}
+
+/* Homepage polish: cleaner hierarchy and subtle atmosphere */
+.home-page {
+  background:
+    radial-gradient(1100px 380px at 85% -10%, color-mix(in srgb, var(--global-theme-color) 9%, transparent), transparent 62%),
+    var(--global-bg-color);
+}
+
+.home-intro {
+  position: relative;
+  padding: 2px 0 4px;
+  display: block;
+  gap: 0;
+}
+
+.home-section-block {
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.home-section-title {
+  font-size: 28px;
+  margin: 0 0 14px;
+  line-height: 1.15;
+  letter-spacing: 0.005em;
+}
+
+.home-section-title strong {
+  font-weight: 600;
+}
+
+
+.home-section-text {
+  font-family: "Roboto", sans-serif;
+  font-size: 17.5px;
+  line-height: 1.72;
+  color: color-mix(in srgb, var(--global-text-color) 92%, transparent);
+  margin: 0 0 30px;
+}
+
+.home-publications-title {
+  margin-top: 6px;
+  margin-bottom: 26px;
+}
+
+.home-section-link {
+  color: inherit;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+}
+
+.home-section-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: currentColor;
+  opacity: 0;
+}
+
+.home-section-link:hover::after,
+.home-section-link:focus-visible::after {
+  opacity: 1;
+}
+
+.home-section-link:hover,
+.home-section-link:focus-visible {
+  text-decoration: none !important;
+}
+
+.home-section-link:visited,
+.home-section-link:active {
+  color: inherit;
+}
+
+/* Make homepage publication cards look less plain-text and more intentional */
+.home-page .publication-item {
+  border-radius: 16px !important;
+  padding: 12px 14px !important;
+  border: 1px solid color-mix(in srgb, var(--global-divider-color) 72%, transparent) !important;
+  background: color-mix(in srgb, var(--global-card-bg-color) 96%, transparent) !important;
+}
+
+.home-page .publication-item:hover {
+  transform: translateY(-3px) !important;
+  border-color: color-mix(in srgb, var(--global-theme-color) 8%, white) !important;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08) !important;
+}
+
+html[data-theme='dark'] .home-page .publication-item:hover {
+  border-color: color-mix(in srgb, var(--global-theme-color) 6%, #6f727a) !important;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18) !important;
+}
+
+/* Homepage entry animation (one-time on load) */
+@keyframes home-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-page .profile,
+.home-page .home-intro,
+.home-page .home-publications-title,
+.home-page .publication-item {
+  opacity: 0;
+  animation: home-fade-up 0.5s ease forwards;
+}
+
+.home-page .profile { animation-delay: 0.04s; }
+.home-page .home-intro { animation-delay: 0.1s; }
+.home-page .home-publications-title { animation-delay: 0.16s; }
+.home-page .publication-item:nth-of-type(1) { animation-delay: 0.22s; }
+.home-page .publication-item:nth-of-type(2) { animation-delay: 0.28s; }
+.home-page .publication-item:nth-of-type(3) { animation-delay: 0.34s; }
+.home-page .publication-item:nth-of-type(4) { animation-delay: 0.4s; }
+.home-page .publication-item:nth-of-type(5) { animation-delay: 0.46s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page .profile,
+  .home-page .home-intro,
+  .home-page .home-publications-title,
+  .home-page .publication-item {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Align homepage typography with other pages */
+.home-page .post-title strong,
+.home-page .home-section-title strong,
+.home-page .publication-authors,
+.home-page .publication-conference,
+.home-page .publication-links {
+  font-family: "Roboto", sans-serif !important;
+}
+
+.home-page .home-section-title strong {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 576px) {
+  .home-section-title {
+    font-size: 26px;
+  }
+  .home-section-text {
+    font-size: 17px;
+    line-height: 1.68;
+  }
+  .home-section-block {
+    padding: 0;
+  }
+}
+
+/* Unified rhythm for inner pages (Publications / Teaching / Service) */
+.subpage-modern .post-header {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid color-mix(in srgb, var(--global-divider-color) 62%, transparent);
+}
+
+.subpage-modern .post-title {
+  margin-bottom: 0;
+}
+
+.subpage-modern .post-title strong {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.subpage-modern .post-description {
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+.subpage-modern article {
+  padding-top: 4px;
+}

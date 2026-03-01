@@ -27,7 +27,7 @@
 
     <!-- Styles -->
 
-    <!-- <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>"> -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%9C%A8</text></svg>">
 
     <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="stylesheet" href="/assets/css/custom.css">
@@ -44,7 +44,7 @@
   </head>
 
   <!-- Body -->
-  <body class="fixed-top-nav ">
+  <body class="fixed-top-nav subpage-modern">
 
     <!-- Header -->
 <header>
@@ -108,65 +108,132 @@
             <style>
               .teaching-item {
                 margin-bottom: 24px;
-                padding-bottom: 18px;
-                border-bottom: 1px solid var(--global-divider-color, rgba(0,0,0,0.08));
               }
-              .teaching-item:last-of-type {
-                border-bottom: none;
+              .teaching-section-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                margin-bottom: 10px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid var(--global-divider-color);
               }
               .teaching-role {
-                font-size: 24px;
-                font-weight: 600;
+                font-family: "Roboto", sans-serif;
+                font-size: 21px;
+                font-weight: 500;
+                letter-spacing: 0.01em;
                 color: var(--global-text-color);
-                margin-bottom: 15px;
+                margin-bottom: 0;
+              }
+              .teaching-count {
+                font-size: 0.9rem;
+                color: var(--global-text-color-light);
               }
               .teaching-details {
                 display: grid;
-                gap: 18px;
+                gap: 0;
+              }
+              @keyframes teaching-fade-in {
+                from {
+                  opacity: 0;
+                  transform: translateY(4px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
               }
               .teaching-entry {
-                font-size: 18px;
-                color: var(--global-text-color-light);
                 display: grid;
-                grid-template-columns: 1fr 200px 150px;
-                gap: 26px;
+                grid-template-columns: minmax(0, 1fr) 220px 130px;
+                gap: 16px;
                 align-items: center;
-                line-height: 1.65;
+                padding: 13px 2px;
+                border-bottom: 1px solid color-mix(in srgb, var(--global-divider-color) 42%, transparent);
+                font-size: 16px;
+                line-height: 1.45;
+                cursor: default;
+                transition: border-color 0.2s ease, background-color 0.2s ease;
+                opacity: 0;
+                animation: teaching-fade-in 0.45s ease forwards;
               }
-              .teaching-entry + .teaching-entry {
-                margin-top: px;
+              .teaching-entry:nth-child(1) { animation-delay: 0.03s; }
+              .teaching-entry:nth-child(2) { animation-delay: 0.08s; }
+              .teaching-entry:nth-child(3) { animation-delay: 0.13s; }
+              .teaching-entry:nth-child(4) { animation-delay: 0.18s; }
+              .teaching-entry:hover {
+                border-bottom-color: color-mix(in srgb, var(--global-theme-color) 24%, var(--global-divider-color));
+                background-color: color-mix(in srgb, var(--global-theme-color) 5%, transparent);
               }
               .teaching-course {
                 color: var(--global-text-color);
-                /* font-weight: 400; */
+                font-size: 1.03rem;
+                font-weight: 500;
+              }
+              .teaching-course a {
+                color: inherit;
+                text-decoration: none;
+              }
+              .teaching-course a:hover,
+              .teaching-course a:focus-visible {
+                color: var(--global-theme-color);
+                text-decoration: underline;
+                text-underline-offset: 2px;
               }
               .teaching-institution {
-                color: var(--global-text-color);
-                text-align: center;
+                color: var(--global-text-color-light);
+                text-align: right;
+                font-size: 0.95rem;
               }
               .teaching-term {
                 color: var(--global-text-color);
                 white-space: nowrap;
                 text-align: right;
+                font-size: 0.95rem;
+                font-weight: 500;
               }
               @media (max-width: 767.98px) {
+                .teaching-role {
+                  font-size: 20px;
+                }
+                .teaching-count {
+                  font-size: 0.85rem;
+                }
                 .teaching-entry {
                   grid-template-columns: 1fr;
-                  gap: 10px;
+                  gap: 2px;
                   text-align: left;
-                  font-size: 17px;
-                  line-height: 1.6;
+                  font-size: 16px;
+                  line-height: 1.55;
+                  padding: 12px 2px;
                 }
                 .teaching-institution,
                 .teaching-term {
                   text-align: left;
                   white-space: normal;
                 }
+                .teaching-institution {
+                  font-size: 0.92rem;
+                }
+                .teaching-term::before {
+                  content: "· ";
+                  color: var(--global-text-color-light);
+                  font-weight: 400;
+                }
+              }
+              @media (prefers-reduced-motion: reduce) {
+                .teaching-entry {
+                  animation: none;
+                  opacity: 1;
+                  transition: none;
+                }
               }
             </style>
 
             <div class="teaching-item">
-              <div class="teaching-role">Teaching Assistant</div>
+              <div class="teaching-section-header">
+                <div class="teaching-role">Teaching Assistant</div>
+              </div>
               <div class="teaching-details">
                 <div class="teaching-entry">
                   <span class="teaching-course">APS105: Computer Fundamentals</span>

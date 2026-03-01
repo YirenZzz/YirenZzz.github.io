@@ -27,7 +27,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/custom.css">
-    <!-- <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>"> -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%9C%A8</text></svg>">
 
     <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="canonical" href="https://yirenzzz.github.io/service/">
@@ -43,7 +43,7 @@
   </head>
 
   <!-- Body -->
-  <body class="fixed-top-nav ">
+  <body class="fixed-top-nav subpage-modern">
 
     <!-- Header -->
 <header>
@@ -105,45 +105,89 @@
 
           <article>
             <style>
-              .service-item {
-                margin-bottom: 15px;
-                padding-bottom: 10px;
+              .service-list {
+                border-top: none;
               }
+              @keyframes service-fade-in {
+                from {
+                  opacity: 0;
+                  transform: translateY(4px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+              }
+              .service-item {
+                display: flex;
+                align-items: baseline;
+                gap: 4px;
+                padding: 13px 2px;
+                border-bottom: 1px solid color-mix(in srgb, var(--global-divider-color) 40%, transparent);
+                line-height: 1.5;
+                opacity: 0;
+                animation: service-fade-in 0.45s ease forwards;
+              }
+              .service-item:nth-child(1) { animation-delay: 0.03s; }
+              .service-item:nth-child(2) { animation-delay: 0.08s; }
+              .service-item:nth-child(3) { animation-delay: 0.13s; }
+              .service-item:nth-child(4) { animation-delay: 0.18s; }
+              .service-item:nth-child(5) { animation-delay: 0.23s; }
               .service-role {
-                font-size: 18px;
-                font-weight: 600;
                 color: var(--global-text-color);
-                display: inline;
+                font-weight: 600;
+                letter-spacing: 0.01em;
+                font-size: 1.1rem;
+                white-space: nowrap;
               }
               .service-details {
-                font-size: 18px;
+                font-size: 1.1rem;
+                font-weight: 400;
                 color: var(--global-text-color);
-                display: inline;
               }
-              .service-year {
-                color: var(--global-text-color-light);
-                margin-left: 10px;
+              @media (max-width: 767.98px) {
+                .service-item {
+                  gap: 3px;
+                  padding: 12px 0;
+                  align-items: flex-start;
+                  flex-wrap: wrap;
+                }
+                .service-role {
+                  font-size: 1rem;
+                }
+                .service-details {
+                  font-size: 1rem;
+                }
+              }
+              @media (prefers-reduced-motion: reduce) {
+                .service-item {
+                  animation: none;
+                  opacity: 1;
+                }
               }
             </style>
+            <div class="service-list">
+              <div class="service-item">
+                <span class="service-role">Reviewer,</span>
+                <span class="service-details">IEEE International Conference on Computer Communications (INFOCOM) 2026</span>
+              </div>
 
-            <div class="service-item">
-              <span class="service-role">Reviewer</span><span class="service-details">, IEEE International Conference on Computer Communications (INFOCOM) 2026</span>
-            </div>
-
-            <div class="service-item">
-              <span class="service-role">Reviewer</span><span class="service-details">, IEEE/ACM International Symposium on Quality of Service (IWQoS) 2025</span>
-            </div>
-
-            <div class="service-item">
-              <span class="service-role">Reviewer</span><span class="service-details">, IEEE International Conference on Computer Communications (INFOCOM) 2025</span>
-            </div>
-
-            <div class="service-item">
-              <span class="service-role">Reviewer</span><span class="service-details">, ACM Multimedia Systems Conference (MMSys) 2025</span>
-            </div>
-
-            <div class="service-item">
-              <span class="service-role">Artifacts Evaluation Committee</span><span class="service-details">, ACM/IFIP International Middleware Conference (Middleware) 2024</span>
+              <div class="service-item">
+                <span class="service-role">Reviewer,</span>
+                <span class="service-details">IEEE/ACM International Symposium on Quality of Service (IWQoS) 2025</span>
+              </div>
+              <div class="service-item">
+                <span class="service-role">Reviewer,</span>
+                <span class="service-details">IEEE International Conference on Computer Communications (INFOCOM) 2025</span>
+              </div>
+              <div class="service-item">
+                <span class="service-role">Reviewer,</span>
+                <span class="service-details">ACM Multimedia Systems Conference (MMSys) 2025</span>
+              </div>
+              <div class="service-item">
+                <span class="service-role">Artifacts Evaluation Committee,</span>
+                <span class="service-details">ACM/IFIP International Middleware Conference (Middleware) 2024</span>
+              </div>
             </div>
           </article>
 
