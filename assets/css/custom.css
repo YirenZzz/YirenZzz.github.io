@@ -12,7 +12,7 @@ html { overflow-y: scroll; }
 
 /* Widen main content area across pages */
 :root {
-  --content-max-width: 900px;
+  --content-max-width: 920px;
 }
 
 .container {
@@ -398,4 +398,71 @@ html[data-theme='dark'] .home-page .publication-item:hover {
   animation-duration: 0.45s !important;
   animation-timing-function: ease !important;
   animation-fill-mode: forwards !important;
+}
+
+/* Publication card text: one size larger (home + publications page) */
+.home-page .publication-title,
+.subpage-modern .publication-title,
+.post .publication-title {
+  font-size: 19px !important;
+}
+
+.home-page .publication-authors,
+.subpage-modern .publication-authors,
+.post .publication-authors {
+  font-size: 16px !important;
+}
+
+.home-page .publication-conference,
+.subpage-modern .publication-conference,
+.post .publication-conference {
+  font-size: 0.95em !important;
+}
+
+/* Publication card links row: one size larger */
+.home-page .publication-links,
+.subpage-modern .publication-links,
+.post .publication-links,
+.home-page .publication-vedios,
+.subpage-modern .publication-vedios,
+.post .publication-vedios {
+  font-size: 0.93em !important;
+}
+
+/* Publications page follows homepage card baseline */
+.subpage-modern article .publication-item {
+  padding: 12px 14px !important;
+}
+
+.subpage-modern article .publication-image {
+  width: 300px !important;
+  height: 150px !important;
+  margin-right: 20px !important;
+}
+
+.subpage-modern article .publication-metadata {
+  width: calc(100% - 320px) !important;
+}
+
+.subpage-modern article .publication-title {
+  font-size: 20px !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0.4em !important;
+}
+
+.subpage-modern article .publication-authors {
+  font-size: 16px !important;
+  line-height: 1.45 !important;
+}
+
+.subpage-modern article .publication-conference,
+.subpage-modern article .publication-links,
+.subpage-modern article .publication-vedios {
+  font-size: 0.95em !important;
+  line-height: 1.35 !important;
+}
+
+/* Home biography/research body text: slightly stronger for readability */
+.home-page .home-section-text {
+  font-weight: 350 !important;
 }
