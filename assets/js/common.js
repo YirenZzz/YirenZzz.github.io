@@ -27,6 +27,13 @@ function initScrollProgressBar() {
       track.style.top = '0px';
       return;
     }
+    // Keep progress bar attached to the fixed top header baseline,
+    // not the expanded mobile menu panel.
+    var bodyPaddingTop = parseFloat(window.getComputedStyle(document.body).paddingTop);
+    if (!isNaN(bodyPaddingTop) && bodyPaddingTop > 0) {
+      track.style.top = (Math.round(bodyPaddingTop) - 1) + 'px';
+      return;
+    }
     track.style.top = (Math.round(navbar.getBoundingClientRect().bottom) - 1) + 'px';
   }
 
