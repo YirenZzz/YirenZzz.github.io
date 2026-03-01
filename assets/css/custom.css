@@ -10,6 +10,23 @@
 /* 如果有的页面存在滚动条、有的没有，可能出现轻微左右抖动 */
 html { overflow-y: scroll; }
 
+/* Widen main content area across pages */
+:root {
+  --content-max-width: 900px;
+}
+
+.container {
+  max-width: 1120px !important;
+}
+
+.post {
+  max-width: var(--content-max-width) !important;
+}
+
+.post .publication-item {
+  max-width: 100% !important;
+}
+
 /* Use Roboto only for menu, bold titles, and publication titles */
 .navbar.navbar-light .navbar-nav .nav-item .nav-link,
 h1 strong,
@@ -55,7 +72,21 @@ html[data-theme='dark'] #scroll-progress-bar {
 
 /* Keep navbar content centered, but make the bottom divider full-width */
 #navbar {
+  max-width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
   border-bottom: none !important;
+}
+
+#navbar > .container {
+  max-width: var(--content-max-width) !important;
+}
+
+@media (min-width: 576px) {
+  #navbar > .container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
 }
 
 #navbar::after {
