@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1163" height="607" viewBox="0 0 1163 607" role="img" aria-label="Nüwa cover image">
+  <defs>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="34%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="74%" stop-color="#f6eff9" stop-opacity="0.72"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="node" cx="35%" cy="32%" r="66%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="36%" stop-color="#e8c4f3"/>
+      <stop offset="100%" stop-color="#9b4cc2"/>
+    </radialGradient>
+    <radialGradient id="nodeSmall" cx="35%" cy="32%" r="66%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="44%" stop-color="#ead1f4"/>
+      <stop offset="100%" stop-color="#a767cc"/>
+    </radialGradient>
+    <pattern id="dotmap" width="12" height="12" patternUnits="userSpaceOnUse">
+      <circle cx="2.8" cy="2.8" r="2.1" fill="#d9c5e8"/>
+    </pattern>
+    <filter id="soft-glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#b47ad2" flood-opacity="0.24"/>
+    </filter>
+  </defs>
+
+  <rect width="1163" height="607" fill="#ffffff"/>
+  <rect width="1163" height="607" fill="url(#fade)"/>
+
+  <g transform="translate(230 24) scale(0.72)" opacity="0.88">
+  <g opacity="0.55">
+    <path d="M704 65 C760 29, 832 20, 906 37 C935 43, 958 60, 987 66 C1015 72, 1040 57, 1072 67 C1109 78, 1135 101, 1163 124 L1163 560 C1125 542, 1085 528, 1030 536 C981 543, 937 562, 884 551 C818 537, 777 488, 704 489 Z" fill="url(#dotmap)" opacity="0.42"/>
+    <path d="M752 116 C795 88, 870 84, 922 100 C966 113, 988 147, 1040 149 C1084 151, 1122 142, 1163 154 L1163 338 C1114 318, 1065 315, 1015 329 C952 347, 899 339, 849 300 C806 267, 755 265, 706 282 C721 220, 721 152, 752 116 Z" fill="url(#dotmap)" opacity="0.34"/>
+    <path d="M686 248 C739 225, 806 223, 869 250 C927 275, 990 268, 1047 252 C1087 240, 1127 240, 1163 253 L1163 466 C1124 443, 1085 439, 1042 452 C986 469, 941 484, 881 464 C815 443, 755 411, 690 427 C675 369, 660 300, 686 248 Z" fill="url(#dotmap)" opacity="0.27"/>
+  </g>
+
+  <g fill="none" stroke-linecap="round">
+    <path d="M680 476 C748 384, 795 274, 832 116" stroke="#b87bd9" stroke-width="13" opacity="0.24"/>
+    <path d="M686 474 C762 388, 836 288, 971 205" stroke="#a14cc5" stroke-width="8" opacity="0.38"/>
+    <path d="M690 472 C800 430, 920 420, 1105 351" stroke="#a14cc5" stroke-width="6" opacity="0.36"/>
+    <path d="M832 116 C886 139, 930 168, 971 205" stroke="#9357bf" stroke-width="4"/>
+    <path d="M832 116 C902 86, 986 77, 1078 97" stroke="#c795e4" stroke-width="3.2" opacity="0.82"/>
+    <path d="M971 205 C1027 249, 1074 300, 1105 351" stroke="#9357bf" stroke-width="4"/>
+    <path d="M680 476 C780 315, 918 210, 1080 96" stroke="#d5b3ea" stroke-width="2.6" opacity="0.85"/>
+    <path d="M682 475 C806 370, 935 285, 1120 242" stroke="#d5b3ea" stroke-width="2.2" opacity="0.65"/>
+    <path d="M690 472 C825 462, 956 421, 1128 314" stroke="#d5b3ea" stroke-width="2.2" opacity="0.62"/>
+  </g>
+
+  <g fill="none" stroke="#d9b8ed" stroke-width="1.4" opacity="0.65">
+    <path d="M670 213 C736 202, 795 210, 846 236"/>
+    <path d="M692 255 C772 244, 852 255, 923 291"/>
+    <path d="M715 302 C804 300, 900 324, 988 374"/>
+    <path d="M738 166 C819 138, 899 136, 984 157"/>
+    <path d="M765 385 C860 362, 966 360, 1084 393"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <circle cx="680" cy="476" r="30" fill="url(#node)" stroke="#9a51c4" stroke-width="4"/>
+    <circle cx="832" cy="116" r="32" fill="url(#node)" stroke="#9a51c4" stroke-width="4"/>
+    <circle cx="971" cy="205" r="30" fill="url(#node)" stroke="#9a51c4" stroke-width="4"/>
+    <circle cx="1105" cy="351" r="31" fill="url(#node)" stroke="#9a51c4" stroke-width="4"/>
+    <circle cx="1078" cy="97" r="13" fill="url(#nodeSmall)" stroke="#b77bd8" stroke-width="3"/>
+    <circle cx="751" cy="315" r="10" fill="#ffffff" stroke="#a14cc5" stroke-width="4"/>
+  </g>
+
+  <g fill="none" stroke="#d4ace9" stroke-linecap="round" opacity="0.72">
+    <path d="M842 105 C850 65, 882 36, 925 24" stroke-width="2.4"/>
+    <path d="M850 110 C872 72, 914 49, 970 41" stroke-width="2"/>
+    <path d="M856 117 C894 92, 946 78, 1012 76" stroke-width="1.8"/>
+    <path d="M671 462 C624 420, 591 367, 575 304" stroke-width="2.2" opacity="0.5"/>
+    <path d="M688 470 C624 455, 566 424, 520 374" stroke-width="1.8" opacity="0.42"/>
+  </g>
+
+  <g opacity="0.25" fill="#b47ad2">
+    <circle cx="640" cy="260" r="3"/>
+    <circle cx="704" cy="225" r="4"/>
+    <circle cx="784" cy="180" r="3"/>
+    <circle cx="912" cy="252" r="3.5"/>
+    <circle cx="1044" cy="292" r="3"/>
+    <circle cx="1092" cy="416" r="4"/>
+    <circle cx="744" cy="412" r="3"/>
+  </g>
+  </g>
+
+  <text x="42" y="132" font-family="SF Pro Display, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="55" font-weight="400" fill="#30343b">Nüwa: A Generative</text>
+  <text x="42" y="198" font-family="SF Pro Display, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="55" font-weight="400" fill="#30343b">Control Plane for AI</text>
+  <text x="42" y="264" font-family="SF Pro Display, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="55" font-weight="400" fill="#30343b">Network Simulation</text>
+  <text x="42" y="342" font-family="SF Pro Display, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="40" font-style="italic" font-weight="400" fill="#8e3bb6">To appear in ACM SIGCOMM 2026</text>
+  <text x="42" y="463" font-family="SF Pro Display, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="40" font-weight="400" fill="#59616d">AI Network • Simulation • Control Plane</text>
+</svg>
