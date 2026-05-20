@@ -92,6 +92,6 @@
   <text x="42" y="132" font-family="SF Pro Display, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="55" font-weight="400" fill="#30343b">Nüwa: A Generative</text>
   <text x="42" y="198" font-family="SF Pro Display, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="55" font-weight="400" fill="#30343b">Control Plane for AI</text>
   <text x="42" y="264" font-family="SF Pro Display, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="55" font-weight="400" fill="#30343b">Network Simulation</text>
-  <text x="42" y="342" font-family="SF Pro Display, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="40" font-style="italic" font-weight="400" fill="#8e3bb6">To appear in ACM SIGCOMM 2026</text>
-  <text x="42" y="463" font-family="SF Pro Display, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="40" font-weight="400" fill="#59616d">AI Network • Simulation • Control Plane</text>
+  <text x="42" y="342" font-family="SF Pro Display, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="35" font-style="italic" font-weight="400" fill="#8e3bb6">To appear in ACM SIGCOMM 2026</text>
+  <text x="42" y="463" font-family="SF Pro Display, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="35" font-weight="400" fill="#59616d">AI Network • Simulation • Control Plane</text>
 </svg>
