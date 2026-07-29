@@ -29,7 +29,7 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%9C%A8</text></svg>">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/custom.css">
+    <link rel="stylesheet" href="/assets/css/custom.css?v=profile-20260729t">
     <link rel="canonical" href="https://yirenzzz.github.io/">
     
     <!-- Dark Mode -->
@@ -109,8 +109,11 @@
 <figure>
   
   <picture>
-    <!-- Use one cropped source across all breakpoints to preserve aspect ratio -->
-    <img class="home-profile-photo" src="/assets/img/profile.jpeg" alt="profile.jpeg">
+    <source
+      type="image/webp"
+      srcset="/assets/img/profile-photo-480.webp?v=profile-photo-20260729 480w, /assets/img/profile-photo-800.webp?v=profile-photo-20260729 800w, /assets/img/profile-photo-1152.webp?v=profile-photo-20260729 1152w"
+      sizes="(max-width: 372px) 86vw, (max-width: 768px) 320px, 330px">
+    <img class="home-profile-photo" src="/assets/img/profile-photo.jpg?v=profile-photo-20260729" alt="profile photo">
   </picture>
 	  <figcaption style="margin-top: 10px; text-align: center;">
     <p style="font-size: 25px; margin: 0;"><strong>Yiren Zhao</strong></p>
@@ -541,7 +544,7 @@ html[data-theme=dark] .publication-item:hover {
   <!-- Medium Zoom JS -->
   <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
   <script src="/assets/js/zoom.js"></script><!-- Load Common JS -->
-  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/common.js?v=profile-20260729k"></script>
 
     <!-- MathJax -->
   <script type="text/javascript">
