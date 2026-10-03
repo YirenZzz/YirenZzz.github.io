@@ -9,3 +9,10 @@ _site
 Gemfile.lock
 vendor
 
+# Private analytics configuration, local state, and data exports
+_analytics/wrangler.jsonc
+_analytics/.wrangler/
+_analytics/.dev.vars*
+_analytics/.env*
+_analytics/exports/
+_analytics/node_modules/
