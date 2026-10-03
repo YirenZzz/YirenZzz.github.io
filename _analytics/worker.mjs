@@ -46,9 +46,13 @@ export default {
     if (!['text/plain', 'application/json'].includes(contentType)) return reply(415);
 
     let path;
+    let visitorType;
     try {
       const payload = await readPayload(request);
       path = payload?.path;
+      // Missing markers from older cached scripts stay unclassified.
+      visitorType = payload?.is_owner === true ? 'owner'
+        : payload?.is_owner === false ? 'visitor' : 'unknown';
       if (typeof path !== 'string' || path.length > 1024 ||
           !path.startsWith('/') || path.startsWith('//') || /[\\\x00-\x1f\x7f]/.test(path)) {
         return reply(400);
@@ -65,11 +69,11 @@ export default {
     const cf = request.cf;
     try {
       await env.DB.prepare(`
-        INSERT INTO visits (ip, visited_at, path, country, region, city, timezone)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO visits (ip, visited_at, path, country, region, city, timezone, visitor_type)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
       `).bind(
         ip, new Date().toISOString(), path,
-        field(cf.country, 2), field(cf.region), field(cf.city), field(cf.timezone)
+        field(cf.country, 2), field(cf.region), field(cf.city), field(cf.timezone), visitorType
       ).run();
     } catch (_) {
       // No database errors or visitor data in public responses or application logs.

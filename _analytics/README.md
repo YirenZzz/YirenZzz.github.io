@@ -8,6 +8,7 @@
 
 - `visits`：公网 IP、服务端接收时间（UTC ISO 8601）、页面路径、国家代码、省／地区、城市、所在时区。
 - `visitor_totals`：按 IP 汇总访问次数、首次及最近访问时间。
+- `visitor_type`：`owner` 表示已标记的自己的浏览器，`visitor` 表示未标记的浏览器，`unknown` 表示历史记录或旧版脚本，没有可用的分类信息。
 - 每次页面加载、刷新、浏览器前进后退恢复页面分别计一次。不是按会话计数，也不是独立访客人数。共享网络可能多人使用同一 IP；同一个人也可能更换 IP。
 - 地址仅为 IP 推断的粗略位置，缺失时保存 NULL；无法获取街道／门牌地址，VPN 或代理位置也可能与实际位置不同。
 - 不记录 URL 查询参数、片段、来源页、Cookie、浏览器指纹；不请求浏览器定位权限。
@@ -42,6 +43,34 @@
 网站和 Worker 都完成发布后，才算正式启用。若更换网站域名，需要同步修改客户端的 origin 限制和 Worker 的 `ALLOWED_ORIGIN`，重新部署两端。
 
 ## 私下查看
+
+### 分开记录自己的访问
+
+在自己的每个浏览器中打开一次 [标记此浏览器为自己](https://yirenzzz.github.io/?analytics-setup=owner-v1#analytics-owner=on)。出现成功提示后，标记保存在此网站的 localStorage 中，未来访问自动归类为 `owner`，即使 IP 改变也继续有效。设置完成会从地址栏移除设置片段，以免误分享。
+
+需要取消时，打开 [取消此浏览器的自己的访问标记](https://yirenzzz.github.io/?analytics-setup=owner-v1#analytics-owner=off)。普通访问不会出现提示，页面外观不变。清理站点数据、更换浏览器／设备、使用无痕窗口后需重新设置；存储被禁止时会提示设置仅对当前页面有效。
+
+这是浏览器自行声明的分类标记，不是身份验证，也不赋予数据库读取权限。不要把开启标记的链接当作网站普通链接分享给别人。`visitor` 指未标记浏览器，可能包括尚未标记的自己的设备。设置同一设备的标记也不会更改此前已保存的访问；历史记录保留 `unknown`，不根据 IP 自动猜测归属。
+
+在 D1 控制台分别查询：
+
+```sql
+-- 自己的访问
+SELECT * FROM owner_visits ORDER BY visited_at DESC LIMIT 100;
+
+-- 其他未标记浏览器的访问
+SELECT * FROM other_visits ORDER BY visited_at DESC LIMIT 100;
+
+-- 按分类和 IP 分别统计次数
+SELECT * FROM visitor_totals_by_type ORDER BY visit_count DESC;
+
+-- 此功能上线以前或旧版脚本产生的记录
+SELECT * FROM visits WHERE visitor_type = 'unknown' ORDER BY visited_at DESC LIMIT 100;
+```
+
+`visits` 仍保留全部明细；原有 `visitor_totals` 仍表示包括自己的访问在内的全部次数。
+
+### 全部记录
 
 登录 Cloudflare 控制台，打开 D1 数据库 `yirenzzz-private-visits` 的查询控制台，执行：
 
