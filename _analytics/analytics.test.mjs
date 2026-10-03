@@ -9,6 +9,7 @@ const origin = 'https://yirenzzz.github.io';
 function setup(t) {
   const db = new DatabaseSync(':memory:');
   db.exec(readFileSync(new URL('./migrations/0001_visits.sql', import.meta.url), 'utf8'));
+  db.exec(readFileSync(new URL('./migrations/0002_owner_visits.sql', import.meta.url), 'utf8'));
   t.after(() => db.close());
   return { db, env: {
     ALLOWED_ORIGIN: origin,
@@ -104,12 +105,26 @@ test('database failure returns generic failure, never success or sensitive detai
 });
 
 const tracker = readFileSync(new URL('../assets/js/visit-tracker.js', import.meta.url), 'utf8');
-function browserContext({ enabled = true, site = origin, prerendering = false, fail = false } = {}) {
+function browserContext({ enabled = true, site = origin, prerendering = false, fail = false,
+  owner = false, hash = '#private', storageFails = false } = {}) {
   const calls = [];
   const events = {};
+  const alerts = [];
+  const storage = new Map(owner ? [['yirenzzz.analytics.owner', '1']] : []);
   const context = {
     window: {
-      location: { origin: site, pathname: '/publications/', search: '?secret=test', hash: '#private' },
+      location: { origin: site, pathname: '/publications/', search: '?secret=test', hash },
+      localStorage: {
+        getItem(key) { if (storageFails) throw new Error('blocked'); return storage.get(key) ?? null; },
+        setItem(key, value) { if (storageFails) throw new Error('blocked'); storage.set(key, value); },
+        removeItem(key) { if (storageFails) throw new Error('blocked'); storage.delete(key); }
+      },
+      history: { state: { existing: true }, replaceState(state, title, url) {
+        assert.equal(state.existing, true);
+        assert.equal(url, '/publications/?secret=test');
+        context.window.location.hash = '';
+      } },
+      alert: (message) => alerts.push(message),
       fetch: (...args) => { calls.push(args); return fail ? Promise.reject(new Error('offline')) : Promise.resolve(); },
       addEventListener: (name, callback) => { events[name] = callback; }
     },
@@ -122,7 +137,7 @@ function browserContext({ enabled = true, site = origin, prerendering = false, f
   const script = tracker.replace(/var endpoint = '[^']*';/,
     enabled ? "var endpoint = 'https://collector.example/collect';" : "var endpoint = '';"
   );
-  return { context, calls, events, run: () => vm.runInContext(script, context) };
+  return { context, calls, events, storage, alerts, run: () => vm.runInContext(script, context) };
 }
 
 test('browser remains inactive until configured and excludes local preview', () => {
@@ -133,14 +148,15 @@ test('browser remains inactive until configured and excludes local preview', () 
   }
 });
 
-test('browser sends only path, omits credentials, and avoids duplicate initialization', async () => {
+test('browser sends path and classification, omits credentials, and avoids duplicate initialization', async () => {
   const browser = browserContext({ fail: true });
   browser.run();
   browser.run();
   browser.events.pageshow({ persisted: false });
   assert.equal(browser.calls.length, 1);
   const [, options] = browser.calls[0];
-  assert.deepEqual(JSON.parse(options.body), { path: '/publications/' });
+  assert.deepEqual(JSON.parse(options.body), { path: '/publications/', is_owner: false });
+  assert.equal(browser.alerts.length, 0);
   assert.equal(options.credentials, 'omit');
   assert.equal(options.referrerPolicy, 'no-referrer');
   browser.events.pageshow({ persisted: true });
@@ -155,4 +171,68 @@ test('prerendered page only records after activation', () => {
   browser.context.document.prerendering = false;
   browser.events.prerenderingchange();
   assert.equal(browser.calls.length, 1);
+});
+
+test('same IP can have owner, visitor and unknown records with separate totals', async (t) => {
+  const { db, env } = setup(t);
+  for (const marker of [true, true, false, undefined, 'true']) {
+    assert.equal((await worker.fetch(request({ body: { path: '/', is_owner: marker } }), env)).status, 204);
+  }
+  const totals = db.prepare('SELECT visitor_type, visit_count FROM visitor_totals_by_type ORDER BY visitor_type').all();
+  assert.deepEqual(totals.map(row => [row.visitor_type, row.visit_count]), [['owner', 2], ['unknown', 2], ['visitor', 1]]);
+  assert.equal(db.prepare('SELECT COUNT(*) AS n FROM owner_visits').get().n, 2);
+  assert.equal(db.prepare('SELECT COUNT(*) AS n FROM other_visits').get().n, 1);
+  assert.equal(db.prepare('SELECT visit_count FROM visitor_totals').get().visit_count, 5);
+});
+
+test('migration preserves historical data and marks it unknown', (t) => {
+  const db = new DatabaseSync(':memory:');
+  t.after(() => db.close());
+  db.exec(readFileSync(new URL('./migrations/0001_visits.sql', import.meta.url), 'utf8'));
+  db.exec("INSERT INTO visits (ip, visited_at, path) VALUES ('192.0.2.1', '2026-10-03T12:00:00.000Z', '/')");
+  db.exec(readFileSync(new URL('./migrations/0002_owner_visits.sql', import.meta.url), 'utf8'));
+  const row = db.prepare('SELECT * FROM visits').get();
+  assert.equal(row.visitor_type, 'unknown');
+  assert.equal(row.visited_at, '2026-10-03T12:00:00.000Z');
+  assert.equal(db.prepare('SELECT visit_count FROM visitor_totals').get().visit_count, 1);
+});
+
+test('owner setting persists, is removed from URL, and can be disabled', () => {
+  const browser = browserContext({ hash: '#analytics-owner=on' });
+  browser.run();
+  assert.equal(JSON.parse(browser.calls[0][1].body).is_owner, true);
+  assert.equal(browser.storage.get('yirenzzz.analytics.owner'), '1');
+  assert.equal(browser.context.window.location.hash, '');
+  assert.equal(browser.alerts.length, 1);
+  browser.context.window.location.hash = '#analytics-owner=off';
+  browser.events.hashchange();
+  assert.equal(browser.storage.size, 0);
+  browser.events.pageshow({ persisted: true });
+  assert.equal(JSON.parse(browser.calls[1][1].body).is_owner, false);
+  const returning = browserContext({ owner: true });
+  returning.run();
+  assert.equal(JSON.parse(returning.calls[0][1].body).is_owner, true);
+  assert.equal(returning.alerts.length, 0);
+});
+
+test('storage failure does not interrupt collection and temporary setting is explicit', () => {
+  for (const hash of ['#private', '#analytics-owner=on', '#analytics-owner=off']) {
+    const browser = browserContext({ hash, storageFails: true });
+    browser.run();
+    assert.equal(JSON.parse(browser.calls[0][1].body).is_owner, hash === '#analytics-owner=on');
+    if (hash !== '#private') assert.match(browser.alerts[0], /仅对当前页面有效/);
+  }
+});
+
+test('prerender activation delays owner settings and unrecognized fragments are untouched', () => {
+  const browser = browserContext({ prerendering: true, hash: '#analytics-owner=on' });
+  browser.run();
+  assert.equal(browser.storage.size, 0);
+  assert.equal(browser.alerts.length, 0);
+  browser.context.document.prerendering = false;
+  browser.events.prerenderingchange();
+  assert.equal(JSON.parse(browser.calls[0][1].body).is_owner, true);
+  const ordinary = browserContext();
+  ordinary.run();
+  assert.equal(ordinary.context.window.location.hash, '#private');
 });
