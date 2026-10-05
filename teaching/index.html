@@ -154,7 +154,6 @@
                 font-size: 16px;
                 line-height: 1.45;
                 cursor: default;
-                transition: border-color 0.2s ease, background-color 0.2s ease;
                 opacity: 0;
                 animation: teaching-fade-in 0.45s ease forwards;
               }
@@ -162,10 +161,6 @@
               .teaching-entry:nth-child(2) { animation-delay: 0.08s; }
               .teaching-entry:nth-child(3) { animation-delay: 0.13s; }
               .teaching-entry:nth-child(4) { animation-delay: 0.18s; }
-              .teaching-entry:hover {
-                border-bottom-color: color-mix(in srgb, var(--global-theme-color) 24%, var(--global-divider-color));
-                background-color: color-mix(in srgb, var(--global-theme-color) 5%, transparent);
-              }
               .teaching-course {
                 color: var(--global-text-color);
                 font-size: 1.03rem;
@@ -226,7 +221,6 @@
                 .teaching-entry {
                   animation: none;
                   opacity: 1;
-                  transition: none;
                 }
               }
             </style>
