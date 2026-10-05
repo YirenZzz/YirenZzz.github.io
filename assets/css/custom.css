@@ -567,6 +567,26 @@ html[data-theme='dark'] .home-page .publication-item:hover {
   color: var(--global-theme-color) !important;
 }
 
+/* Informational rows stay plain, including when older inline hover styles are cached. */
+.subpage-modern .teaching-entry,
+.subpage-modern .teaching-entry:hover,
+.subpage-modern .service-item,
+.subpage-modern .service-item:hover {
+  background: transparent !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+.subpage-modern .teaching-entry,
+.subpage-modern .teaching-entry:hover {
+  border-bottom-color: color-mix(in srgb, var(--global-divider-color) 42%, transparent) !important;
+}
+
+.subpage-modern .service-item,
+.subpage-modern .service-item:hover {
+  border-bottom-color: color-mix(in srgb, var(--global-divider-color) 40%, transparent) !important;
+}
+
 .home-page .contact-icons a i,
 .home-page .contact-icons a i::before {
   color: currentColor !important;
