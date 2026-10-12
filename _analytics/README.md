@@ -6,14 +6,37 @@
 
 ## 记录内容和口径
 
-- `visits`：公网 IP、服务端接收时间（UTC ISO 8601）、页面路径、国家代码、省／地区、城市、所在时区。
-- `visitor_totals`：按 IP 汇总访问次数、首次及最近访问时间。
-- `visitor_type`：`owner` 表示已标记的自己的浏览器，`visitor` 表示未标记的浏览器，`unknown` 表示历史记录或旧版脚本，没有可用的分类信息。
-- 每次页面加载、刷新、浏览器前进后退恢复页面分别计一次。不是按会话计数，也不是独立访客人数。共享网络可能多人使用同一 IP；同一个人也可能更换 IP。
-- 地址仅为 IP 推断的粗略位置，缺失时保存 NULL；无法获取街道／门牌地址，VPN 或代理位置也可能与实际位置不同。
-- 不记录 URL 查询参数、片段、来源页、Cookie、浏览器指纹；不请求浏览器定位权限。
-- 只有启用后的新访问会被记录。JavaScript 被禁用、拦截器、网络故障、服务配额耗尽都可能导致漏记。文件下载、图片请求以及不执行 JS 的爬虫不计入。
-- 当前不自动删除历史数据；可从 D1 控制台删除或导出。数据库配额和费用随记录增长变化，部署前在账号中确认适用套餐与配额。
+增强采集版本：`engagement-20261011`。旧脚本继续兼容；新增字段只对升级后的访问生效，不补造历史数据。
+
+| 内容 | 保存位置和含义 |
+| --- | --- |
+| IP、时间、位置 | `visits.ip / visited_at / country / region / city / timezone`；接收时间为 UTC，位置为 Cloudflare 推断的粗略位置 |
+| 来源网站 | `referrer`；外站只保留域名，同站保留路径，不保留查询参数或片段；浏览器未提供时为空 |
+| 浏览器、系统、设备 | `browser / browser_version / os / os_version / device_type`；从请求 UA 推断，版本受浏览器信息缩减影响，不保证等于真实版本 |
+| 首次／再次访问 | `visitor_profiles` 保存随机浏览器标识的首次、最近访问；`session_summary.is_returning` 为 0 表示首次已知会话，1 表示后续会话，NULL 表示无法识别 |
+| 访问路径 | `visits.path / previous_path / page_sequence`；`session_paths` 按会话提供访问步骤 |
+| 页面停留时间 | `active_ms` 为前台可见累计毫秒，不代表真正阅读；`last_seen_at` 为最近收到上报的时间 |
+| 滚动深度 | `max_scroll_pct` 为最远滚动进度 0–100；长页顶部为 0，到底为 100，整页可见为 100 |
+| 链接点击 | `link_clicks` 保存时间、目标、链接文字、类型；关联 `page_id` 后可查看来源页面和访客分类 |
+| 推广来源参数 | `utm_source / utm_medium / utm_campaign / utm_term / utm_content`；只保留这五个查询参数，各最多 128 字符 |
+| 访问会话 | `session_summary` 汇总页数、不同页面数、前台时长、首末时间；`session_paths` 提供访问顺序 |
+| 论文关注度 | `paper_interest` 按论文标题和自己的／其他访问汇总链接、PDF、GitHub 点击，以及已知浏览器数和会话数 |
+| 浏览器语言和时区 | `language / languages / browser_timezone`；与 IP 推断的 `timezone` 分开记录 |
+| 网络信息 | `asn / as_organization` 为 Cloudflare 提供的 IP 所属网络编号和组织，不代表访客真实单位 |
+
+### 统计规则
+
+- 随机 `visitor_id` 保存在 localStorage；不使用浏览器指纹。清理站点数据、更换浏览器／设备或使用无痕窗口可能成为新访客；禁止存储时设为 NULL，不把每次访问伪装成一个新访客。
+- `session_id` 保存在 sessionStorage，每个标签页分别记录，连续 30 分钟未活跃后开始新会话。标签页复制时浏览器可能复制 sessionStorage，因此不是跨标签页严格唯一的身份系统。前台可见页面的心跳算活跃，持续打开页面会延续会话。
+- 每次加载、刷新、前进后退恢复页面，或超时后重新活跃，产生一条页面记录。30 秒心跳更新同一条记录，不增加访问次数。重复和乱序上报使用累计最大值；点击使用独立事件 ID 去重。
+- 停留时间只累计页面在前台可见的时间；切后台或离开时尝试立即上报，定时约 30 秒上报。为避免电脑休眠导致虚增，单次计时差最多计 60 秒。关闭浏览器、离线或拦截可能损失最后一段时间／点击；这是尽力采集，不是完整审计日志。
+- 论文关注度来自首页和 Publications 页面论文卡片里的链接点击，包括 PDF、代码、视频等，不表示论文被实际阅读或下载成功。没有点击时不能判断访客对哪篇论文感兴趣。
+- `visitor_type`：`owner` 是已标记的自己的浏览器，`visitor` 是未标记的浏览器，`unknown` 是没有分类信息的旧记录。历史访问不随标记变化。一个会话中分类改变时，`session_summary.visitor_type` 为 `mixed`。
+- 原有 `visitor_totals` 仍按 IP 汇总页面访问，包含自己的访问；IP 不等于独立访客，同一 IP 可以多人共享，一个人也可能更换 IP。
+- 位置无法精确到街道／门牌，VPN 或代理位置也可能与实际位置不同。不请求定位权限，不记录 Cookie、表单输入或完整 URL 查询串；链接剥离查询、片段和 URL 凭据，邮件／电话点击只保存类型，不保存地址或号码。
+- 来源为空可能是直接打开，也可能是浏览器或来源网站未提供，不能一律判为直接访问。推广链接可使用 `?utm_source=cv&utm_medium=pdf&utm_campaign=applications`；不要在这些值中放姓名、邮箱等敏感内容。
+- 本地预览不采集。JavaScript 禁用、拦截器、网络故障或服务配额耗尽可能导致漏记；直接请求文件和不执行 JS 的爬虫不计入页面访问。
+- 不自动删除历史数据；可从 D1 控制台删除或导出。30 秒心跳会增加数据库写入量，费用和配额以账号实际套餐为准。
 
 ## 重新搭建时的首次部署
 
@@ -83,6 +106,37 @@ FROM visits ORDER BY visited_at DESC, id DESC LIMIT 100;
 SELECT * FROM visitor_totals ORDER BY visit_count DESC;
 ```
 
+### 新增行为数据
+
+在同一个 D1 数据库的查询控制台执行以下 SQL。`active_ms / 1000.0` 将毫秒转换为秒。以下查询排除已标记的自己的访问：
+
+```sql
+-- 最近访问的环境、来源、网络和阅读进度
+SELECT visited_at, path, referrer, browser, os, device_type,
+       language, browser_timezone, asn, as_organization,
+       active_ms / 1000.0 AS foreground_seconds, max_scroll_pct,
+       utm_source, utm_medium, utm_campaign
+FROM visits WHERE visitor_type = 'visitor'
+ORDER BY visited_at DESC LIMIT 100;
+
+-- 首次／回访会话及会话内访问路径（第一条查询取出 session_id）
+SELECT * FROM session_summary WHERE visitor_type = 'visitor'
+ORDER BY started_at DESC LIMIT 100;
+SELECT * FROM session_paths WHERE session_id = '填入会话 ID' ORDER BY step;
+
+-- 链接点击，关联来源页面
+SELECT c.clicked_at, v.path, c.target_url, c.link_type, c.link_text, c.paper_title
+FROM link_clicks c JOIN visits v ON v.page_id = c.page_id
+WHERE v.visitor_type = 'visitor'
+ORDER BY c.clicked_at DESC LIMIT 100;
+
+-- 论文关注度
+SELECT * FROM paper_interest WHERE visitor_type = 'visitor'
+ORDER BY link_clicks DESC;
+```
+
+`visitor_profiles` 提供每个已知浏览器的累计访问概况，包含自己的访问；没有随机浏览器标识的记录不会强行合并为一个人。
+
 也可以在 `_analytics` 目录通过已登录的 CLI 查询：
 
 ```sh
@@ -99,7 +153,7 @@ npx wrangler@4 d1 execute yirenzzz-private-visits --remote --command "SELECT * F
 node --test _analytics/analytics.test.mjs
 ```
 
-测试以本机内存 SQLite 验证实际 SQL、次数汇总、输入限制和读取隔离，用模拟 Cloudflare 请求元数据验证服务端处理。真实地理信息和 D1 权限需部署后再验证；本地预览不能代表真实访客位置。
+测试以本机内存 SQLite 验证真实迁移和 SQL、重复／乱序上报、点击去重、会话汇总、历史兼容、输入限制和读取隔离，并用浏览器模拟验证可见时间、滚动、会话超时、前进后退和点击采集。真实地理信息和 D1 权限需部署后再验证；本地预览不能代表真实访客位置。
 
 公开写入入口没有用户登录，Origin 限制只过滤其他网站的浏览器请求，不是鉴权，也不能阻止伪造 Origin 的脚本制造记录。因此统计不保证无机器人、无刷量；发现滥用时需增加限流措施。未来做版面时应单独添加受认证保护的读取服务，不能直接将完整 IP 数据公开。
 
