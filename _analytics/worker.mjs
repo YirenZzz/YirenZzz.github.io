@@ -1,4 +1,6 @@
-const MAX_BODY_BYTES = 2048;
+import { engagementStatements } from './engagement.mjs';
+
+const MAX_BODY_BYTES = 16384;
 
 async function readPayload(request) {
   if (!request.body) throw new Error('Missing body');
@@ -47,8 +49,9 @@ export default {
 
     let path;
     let visitorType;
+    let payload;
     try {
-      const payload = await readPayload(request);
+      payload = await readPayload(request);
       path = payload?.path;
       // Missing markers from older cached scripts stay unclassified.
       visitorType = payload?.is_owner === true ? 'owner'
@@ -67,6 +70,16 @@ export default {
     const ip = request.headers.get('CF-Connecting-IP');
     if (!ip || ip.length > 45 || !request.cf) return reply(400);
     const cf = request.cf;
+    if (payload.v !== undefined) {
+      let statements;
+      try {
+        statements = engagementStatements(request, env, payload, path, visitorType);
+      } catch (_) { return reply(400); }
+      try {
+        await env.DB.batch(statements);
+        return reply(204);
+      } catch (_) { return reply(503); }
+    }
     try {
       await env.DB.prepare(`
         INSERT INTO visits (ip, visited_at, path, country, region, city, timezone, visitor_type)
