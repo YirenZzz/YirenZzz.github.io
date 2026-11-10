@@ -1,0 +1,18 @@
+# GitHub Pages runs Jekyll even though the live pages are prebuilt HTML.
+# Preserve old examples in Git; do not copy them into the published site.
+exclude:
+  - "2021"
+  - blog
+  - sample-posts
+  - projects
+  - news
+  - _pages
+  - intex_copy.html
+  - feed.xml
+  - _analytics
+  - README.md
+  - CONTRIBUTING.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor

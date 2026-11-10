@@ -1,4 +1,13 @@
 User-agent: *
-Disallow:
+Disallow: /2021/
+Disallow: /blog/
+Disallow: /sample-posts/
+Disallow: /projects/
+Disallow: /news/
+Disallow: /_pages/
+Disallow: /intex_copy.html
+Disallow: /feed.xml
 
-Sitemap: https://YirenZzz.github.io/sitemap.xml
+# Formal pages and all assets (including papers) remain crawlable.
+# These are crawler preferences, not access control.
+Sitemap: https://yirenzzz.github.io/sitemap.xml

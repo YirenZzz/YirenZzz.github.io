@@ -67,6 +67,16 @@
 
 ## 私下查看
 
+### 分开查看机器人和普通浏览器
+
+复制 [traffic-reports.sql](traffic-reports.sql) 中需要的一条查询到 D1 Console 执行。该文件提供分类总数、最近访问、链接点击和论文关注度四种只读查询，不需要部署新的 Worker 或迁移数据库。
+
+- 分类总数将 `bot`、`unclassified`、`not_identified_as_bot` 分开，并同时保留 `owner / visitor / unknown` 分类。旧数据缺少设备信息时归入 `unclassified`。
+- 日常访问、点击、论文查询只选择 `visitor` 中的 `desktop / mobile / tablet`，排除已识别机器人、自己的浏览器和无法分类的旧记录。未识别为机器人不等于已证实为真人；不能根据云服务商或大学网络名称推断身份。
+- 最近访问的时间字段为英文 `visit_time`，按当前使用的纽约时区显示，并按现行美国规则处理夏令时；原始 UTC 数据不变。查询不会自动跟随电脑改时区。
+- 所有原始记录和旧汇总视图继续保留。`other_visits` 和 `visitor_totals_by_type` 仍可能包含机器人；要分开统计，请使用本节的新查询。
+- 这些查询只影响查看方式，不能阻止抓取网页。机器人识别仍使用已有的请求 UA 特征，没有按 IP 删除或丢弃记录。
+
 ### 分开记录自己的访问
 
 在自己的每个浏览器中打开一次 [标记此浏览器为自己](https://yirenzzz.github.io/?analytics-setup=owner-v1#analytics-owner=on)。出现成功提示后，标记保存在此网站的 localStorage 中，未来访问自动归类为 `owner`，即使 IP 改变也继续有效。设置完成会从地址栏移除设置片段，以免误分享。
