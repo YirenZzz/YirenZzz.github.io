@@ -1,14 +1,12 @@
 (function () {
   'use strict';
 
-  // Clear this URL to disable logging after republishing the site.
   // This URL is public. Never put a Cloudflare token or database credential here.
   var endpoint = 'https://yirenzzz-private-visits.yirenzzz-visits.workers.dev/collect';
   if (!endpoint || window.location.origin !== 'https://yirenzzz.github.io') return;
   if (window.__visitTrackerStarted) return;
   window.__visitTrackerStarted = true;
 
-  // A browser preference for analytics classification, not an authentication token.
   var ownerKey = 'yirenzzz.analytics.owner';
   var temporaryOwner = false;
   var storageUnavailable = false;
@@ -99,7 +97,6 @@
   function accrue() {
     if (!page || page.since === null) return;
     var now = tick();
-    // Bound a single gap so a sleeping computer does not add hours of apparent reading.
     page.active += Math.min(60000, Math.max(0, now - page.since));
     page.since = visible() ? now : null;
     touch();
@@ -123,7 +120,7 @@
         var sent = new Set(clicks.map(function (click) { return click.event_id; }));
         current.pending = current.pending.filter(function (click) { return !sent.has(click.event_id); });
       }).catch(function () {});
-    } catch (_) { /* Analytics must never interrupt navigation. */ }
+    } catch (_) { }
   }
   function restoreSession() {
     try {
@@ -225,7 +222,6 @@
       document.addEventListener('click', trackClick, true);
       document.addEventListener('auxclick', trackClick, true);
     } catch (_) {
-      // Keep basic collection on older browsers that cannot generate secure IDs.
       try {
         window.fetch(endpoint, {
           method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' },

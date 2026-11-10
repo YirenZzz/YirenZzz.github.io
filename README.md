@@ -11,19 +11,14 @@ to skip the retired paths while allowing the formal pages and assets. These rule
 are crawl preferences, not access control. Excluding a file from the website does
 not hide its source in a public GitHub repository or erase previously saved copies.
 
-The 404 page keeps its return-home link but does not automatically redirect, so
-requests for retired paths do not generate automatic homepage visits. It continues
-to record the requested path for diagnostics; its `noindex` tag is not a security
-control. GitHub Pages should serve these missing paths with HTTP 404.
+The 404 page keeps its return-home link but does not automatically redirect.
+Its `noindex` tag is not a security control. GitHub Pages should serve these
+missing paths with HTTP 404.
 
 To restore a retired section, remove it from `_config.yml`'s exclusions and update
 the sitemap and robots rules together. A raw `python -m http.server` preview serves
 the source tree and does not apply Jekyll exclusions; verify the deployed Pages
 build when checking that retired URLs are no longer published.
-
-Private analytics instructions and read-only bot-separated reports are in
-[`_analytics/README.md`](_analytics/README.md) and
-[`_analytics/traffic-reports.sql`](_analytics/traffic-reports.sql).
 
 ## Original theme documentation: al-folio
 

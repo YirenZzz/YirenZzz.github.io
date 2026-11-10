@@ -1,4 +1,3 @@
--- Keep historical records explicitly unclassified; IP alone cannot identify the owner.
 ALTER TABLE visits ADD COLUMN visitor_type TEXT NOT NULL DEFAULT 'unknown'
   CHECK (visitor_type IN ('owner', 'visitor', 'unknown'));
 

@@ -42,7 +42,6 @@ export default {
       headers['Access-Control-Allow-Headers'] = 'Content-Type';
       return reply(204);
     }
-    // There is intentionally no HTTP endpoint for reading visitor records.
     if (request.method !== 'POST') return reply(405);
     const contentType = (request.headers.get('Content-Type') || '').split(';')[0].trim();
     if (!['text/plain', 'application/json'].includes(contentType)) return reply(415);
@@ -89,7 +88,6 @@ export default {
         field(cf.country, 2), field(cf.region), field(cf.city), field(cf.timezone), visitorType
       ).run();
     } catch (_) {
-      // No database errors or visitor data in public responses or application logs.
       return reply(503);
     }
     return reply(204);
